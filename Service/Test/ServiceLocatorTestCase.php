@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -24,7 +26,7 @@ abstract class ServiceLocatorTestCase extends TestCase
      */
     protected function getServiceLocator(array $factories): ContainerInterface
     {
-        return new class($factories) implements ContainerInterface {
+        return new class ($factories) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
     }
@@ -72,7 +74,9 @@ abstract class ServiceLocatorTestCase extends TestCase
     public function testThrowsOnUndefinedInternalService()
     {
         $locator = $this->getServiceLocator([
-            'foo' => static function () use (&$locator) { return $locator->get('bar'); },
+            'foo' => static function () use (&$locator) {
+                return $locator->get('bar');
+            },
         ]);
 
         $this->expectException(NotFoundExceptionInterface::class);
@@ -84,9 +88,15 @@ abstract class ServiceLocatorTestCase extends TestCase
     public function testThrowsOnCircularReference()
     {
         $locator = $this->getServiceLocator([
-            'foo' => static function () use (&$locator) { return $locator->get('bar'); },
-            'bar' => static function () use (&$locator) { return $locator->get('baz'); },
-            'baz' => static function () use (&$locator) { return $locator->get('bar'); },
+            'foo' => static function () use (&$locator) {
+                return $locator->get('bar');
+            },
+            'bar' => static function () use (&$locator) {
+                return $locator->get('baz');
+            },
+            'baz' => static function () use (&$locator) {
+                return $locator->get('bar');
+            },
         ]);
 
         $this->expectException(ContainerExceptionInterface::class);

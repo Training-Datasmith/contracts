@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -44,7 +46,7 @@ class ServiceSubscriberTraitTest extends TestCase
 
     public function testSetContainerIsCalledOnParent()
     {
-        $container = new class([]) implements ContainerInterface {
+        $container = new class ([]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
 
@@ -53,10 +55,10 @@ class ServiceSubscriberTraitTest extends TestCase
 
     public function testParentNotCalledIfHasMagicCall()
     {
-        $container = new class([]) implements ContainerInterface {
+        $container = new class ([]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
-        $service = new class extends LegacyParentWithMagicCall {
+        $service = new class () extends LegacyParentWithMagicCall {
             use ServiceSubscriberTrait;
 
             private $container;
@@ -68,10 +70,10 @@ class ServiceSubscriberTraitTest extends TestCase
 
     public function testParentNotCalledIfNoParent()
     {
-        $container = new class([]) implements ContainerInterface {
+        $container = new class ([]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
-        $service = new class {
+        $service = new class () {
             use ServiceSubscriberTrait;
 
             private $container;
@@ -83,12 +85,12 @@ class ServiceSubscriberTraitTest extends TestCase
 
     public function testSetContainerCalledFirstOnParent()
     {
-        $container1 = new class([]) implements ContainerInterface {
+        $container1 = new class ([]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
         $container2 = clone $container1;
 
-        $testService = new class extends LegacyParentTestService2 implements ServiceSubscriberInterface {
+        $testService = new class () extends LegacyParentTestService2 implements ServiceSubscriberInterface {
             use ServiceSubscriberTrait;
         };
         $this->assertNull($testService->setContainer($container1));

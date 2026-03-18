@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -49,7 +51,7 @@ class ServiceMethodsSubscriberTraitTest extends TestCase
             'my_key' => MyDependency::class,
         ], HookedPropertyService::getSubscribedServices());
 
-        $container = new class([HookedPropertyService::class.'::$myDependency::get' => static fn () => new MyDependency()]) implements ContainerInterface {
+        $container = new class ([HookedPropertyService::class.'::$myDependency::get' => static fn () => new MyDependency()]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
 
@@ -76,7 +78,7 @@ class ServiceMethodsSubscriberTraitTest extends TestCase
 
     public function testSetContainerIsCalledOnParent()
     {
-        $container = new class([]) implements ContainerInterface {
+        $container = new class ([]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
 
@@ -85,10 +87,10 @@ class ServiceMethodsSubscriberTraitTest extends TestCase
 
     public function testParentNotCalledIfHasMagicCall()
     {
-        $container = new class([]) implements ContainerInterface {
+        $container = new class ([]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
-        $service = new class extends ParentWithMagicCall {
+        $service = new class () extends ParentWithMagicCall {
             use ServiceMethodsSubscriberTrait;
         };
 
@@ -98,10 +100,10 @@ class ServiceMethodsSubscriberTraitTest extends TestCase
 
     public function testParentNotCalledIfNoParent()
     {
-        $container = new class([]) implements ContainerInterface {
+        $container = new class ([]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
-        $service = new class {
+        $service = new class () {
             use ServiceMethodsSubscriberTrait;
         };
 
@@ -111,7 +113,7 @@ class ServiceMethodsSubscriberTraitTest extends TestCase
 
     public function testSetContainerCalledFirstOnParent()
     {
-        $container1 = new class([]) implements ContainerInterface {
+        $container1 = new class ([]) implements ContainerInterface {
             use ServiceLocatorTrait;
         };
         $container2 = clone $container1;

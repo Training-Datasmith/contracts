@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -102,13 +104,13 @@ trait ServiceLocatorTrait
             $message = \sprintf('Service "%s" not found: the current service locator %s', $id, $message);
         }
 
-        return new class($message) extends \InvalidArgumentException implements NotFoundExceptionInterface {
+        return new class ($message) extends \InvalidArgumentException implements NotFoundExceptionInterface {
         };
     }
 
     private function createCircularReferenceException(string $id, array $path): ContainerExceptionInterface
     {
-        return new class(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, implode(' -> ', $path))) extends \RuntimeException implements ContainerExceptionInterface {
+        return new class (\sprintf('Circular reference detected for service "%s", path: "%s".', $id, implode(' -> ', $path))) extends \RuntimeException implements ContainerExceptionInterface {
         };
     }
 }

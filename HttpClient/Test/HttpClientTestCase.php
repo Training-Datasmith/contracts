@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -325,7 +327,9 @@ abstract class HttpClientTestCase extends TestCase
         $this->expectException(TransportExceptionInterface::class);
 
         $response = $client->request('POST', 'http://localhost:8057/', [
-            'body' => static function () { yield []; },
+            'body' => static function () {
+                yield [];
+            },
         ]);
 
         $response->getStatusCode();
@@ -547,7 +551,9 @@ abstract class HttpClientTestCase extends TestCase
         $response = $client->request('POST', 'http://localhost:8057/post', [
             'headers' => ['Content-Length' => 14],
             'body' => 'foo=0123456789',
-            'on_progress' => static function (...$state) use (&$steps) { $steps[] = $state; },
+            'on_progress' => static function (...$state) use (&$steps) {
+                $steps[] = $state;
+            },
         ]);
 
         $body = $response->toArray();

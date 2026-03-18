@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -48,7 +50,7 @@ class TranslatorTest extends TestCase
 
     public function getTranslator(): TranslatorInterface
     {
-        return new class implements TranslatorInterface {
+        return new class () implements TranslatorInterface {
             use TranslatorTrait;
         };
     }
@@ -382,7 +384,7 @@ class TranslatorTest extends TestCase
 
     protected function generateTestData($langCodes)
     {
-        $translator = new class {
+        $translator = new class () {
             use TranslatorTrait {
                 getPluralizationRule as public;
             }
