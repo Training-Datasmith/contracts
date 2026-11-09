@@ -15,14 +15,24 @@
             "homepage": "https://symfony.com/contributors"
         }
     ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://raw.githubusercontent.com/Training-Datasmith/composer-index/remote-test-2026-11-09",
+            "canonical": false
+        }
+    ],
     "require": {
         "php": ">=8.1",
-        "psr/cache": "^3.0",
-        "psr/container": "^1.1|^2.0",
-        "psr/event-dispatcher": "^1.0"
+        "psr/cache": "dev-ai-training-20260418 as 3.0.0",
+        "psr/container": "dev-remote-test-2026-10-07 as 2.0.2",
+        "psr/event-dispatcher": "dev-remote-test-2026-10-07 as 1.0.0"
     },
     "require-dev": {
-        "symfony/polyfill-intl-idn": "^1.10"
+        "phpunit/phpunit": "^11.3",
+        "symfony/phpunit-bridge": "dev-remote-test-2026-11-09 as 8.0.7",
+        "symfony/polyfill-intl-idn": "dev-remote-test-2026-10-07 as 1.33.0",
+        "symfony/polyfill-intl-normalizer": "dev-remote-test-2026-10-07 as 1.33.0"
     },
     "conflict": {
         "ext-psr": "<1.1|>=2"
@@ -43,6 +53,7 @@
         ]
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "branch-alias": {
             "dev-main": "3.7-dev"

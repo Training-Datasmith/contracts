@@ -372,12 +372,14 @@ class TranslatorTest extends TestCase
      */
     protected function validateMatrix(string $nplural, array $matrix, bool $expectSuccess = true)
     {
+        $expectedPluralCount = (int) $nplural;
+
         foreach ($matrix as $langCode => $data) {
             $indexes = array_flip($data);
             if ($expectSuccess) {
-                $this->assertCount($nplural, $indexes, "Langcode '$langCode' has '$nplural' plural forms.");
+                $this->assertCount($expectedPluralCount, $indexes, "Langcode '$langCode' has '$nplural' plural forms.");
             } else {
-                $this->assertNotCount($nplural, $indexes, "Langcode '$langCode' has '$nplural' plural forms.");
+                $this->assertNotCount($expectedPluralCount, $indexes, "Langcode '$langCode' has '$nplural' plural forms.");
             }
         }
     }

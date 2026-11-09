@@ -17,6 +17,8 @@
         <testsuite name="Symfony Contracts Test Suite">
             <directory>./Tests/</directory>
             <directory>./Service/Test/</directory>
+            <!-- ServiceLocatorTest is a deprecated BC alias of ServiceLocatorTestCase with no tests; subclasses hold the real cases. -->
+            <exclude>./Service/Test/ServiceLocatorTest.php</exclude>
             <directory>./Translation/Test/</directory>
         </testsuite>
     </testsuites>
